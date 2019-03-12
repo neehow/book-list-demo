@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import '../styles/App.css';
-import BookListHeader from '../components/BookListHeader';
-import VisibleBookList from '../containers/VisibleBookList';
+import React, { Component } from 'react'
+import '../styles/App.css'
+import BookListHeader from '../components/BookListHeader'
+import VisibleBookList from '../containers/VisibleBookList'
+import { fetchBooks } from '../actions'
 
 class App extends Component {
   constructor (props) {
@@ -9,7 +10,7 @@ class App extends Component {
   }
 
   componentDidMount () {
-    console.log('mount!', this.props)
+    // this.props.dispatch(fetchBooks())
   }
 
   render() {

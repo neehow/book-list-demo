@@ -1,3 +1,5 @@
+import { booksData } from '../utils/booksData'
+
 let nextTodoId = 0
 export const addTodo = text => ({
   type: 'ADD_TODO',
@@ -28,9 +30,30 @@ export const setCountPerPage = count => ({
   count
 })
 
-// export const VisibilityFilters = {
-//   SHOW_ALL: 'SHOW_ALL',
-//   SHOW_COMPLETED: 'SHOW_COMPLETED',
-//   SHOW_ACTIVE: 'SHOW_ACTIVE'
-// }
+const requestBooks = () => ({
+  type: 'REQUEST_BOOKS'
+})
+
+const receiveBooks = (json) => ({
+  type: 'RECEIVE_BOOKS',
+  books: json.data.books
+})
+
+export const fetchBooks = () => {
+  return async dispatch => {
+    dispatch(requestBooks())
+    // 模拟从后端接口获取数据
+    const json = await new Promise((resolve, reject) => {
+      const response = {
+        data: {
+          books: booksData
+        }
+      }
+      setTimeout(() => {
+        resolve(response);
+      }, 1000)
+    })
+    return dispatch(receiveBooks(json))
+  }
+}
 
