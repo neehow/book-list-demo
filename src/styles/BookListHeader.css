@@ -1,0 +1,33 @@
+.header {
+  position: relative;
+}
+
+.header-title {
+  display: inline-block;
+  font-size: 22px;
+  margin: 0;
+  padding: 0 20px 0 40px;
+}
+
+.header-subtitle {
+  color: #a6a6a6;
+  font-size: 14px;
+}
+
+.link-more {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 2px;
+  color: #666;
+  text-decoration: none;
+  background-color: #fff;
+}
+
+.link-more:hover {
+  color: #fff;
+  background-color: #68ABB7;
+}
+
