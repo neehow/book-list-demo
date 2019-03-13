@@ -1,15 +1,25 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Book from './Book'
+import { fetchBooks } from '../actions'
 
-const BookList = ({books}) => (
-  <ul>
-    {books.map(book => (
-      <Book
-        key={book.id}
-        {...book}
-      />
-    ))}
-  </ul>
-)
+class BookList extends Component {
+  componentDidMount () {
+    this.props.dispatch(fetchBooks())
+  }
+
+  render () {
+    const { books } = this.props
+    return (
+      <ul>
+        {books.map(book => (
+          <Book
+            key={book.id}
+            {...book}
+          />
+        ))}
+      </ul>
+    )
+  }
+}
 
 export default BookList

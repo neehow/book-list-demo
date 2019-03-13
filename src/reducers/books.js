@@ -2,12 +2,8 @@ const books = (state = [], action) => {
   switch (action.type) {
     case 'RECEIVE_BOOKS':
       return action.books
-    case 'TOGGLE_BOOK':
-      return state.map(book =>
-        (book.id === action.id)
-          ? {...book, completed: !book.completed}
-          : book
-      )
+    case 'PAGE_RIGHT':
+      return state
     default:
       return state
   }

@@ -40,10 +40,10 @@ const receiveBooks = (json) => ({
 })
 
 export const fetchBooks = () => {
-  return async dispatch => {
+  return dispatch => {
     dispatch(requestBooks())
     // 模拟从后端接口获取数据
-    const json = await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const response = {
         data: {
           books: booksData
@@ -51,9 +51,10 @@ export const fetchBooks = () => {
       }
       setTimeout(() => {
         resolve(response);
-      }, 1000)
-    })
-    return dispatch(receiveBooks(json))
+      }, 500)
+    }).then(
+      response => dispatch(receiveBooks(response)),
+      error => console.log('An error occured.', error)
+    )
   }
 }
-

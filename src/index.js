@@ -1,16 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
+import './styles/index.css'
 import App from './views/App'
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { Provider } from 'react-redux'
 import rootReducer from './reducers'
-import { fetchBooks } from './actions'
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunkMiddleware)  
+  applyMiddleware(thunkMiddleware)
 )
 
 ReactDOM.render(
@@ -20,4 +19,4 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
-store.dispatch(fetchBooks()).then(() => console.log(store.getState()))
+store.subscribe(a => console.log(store.getState()))

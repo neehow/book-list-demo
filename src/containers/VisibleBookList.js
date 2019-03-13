@@ -3,18 +3,11 @@ import { pageRight, pageLeft } from '../actions'
 import BookList from '../components/BookList'
 
 const getVisibleBooks = (books, currentPage, countPerPage) => {
-  // switch (filter) {
-    // case VisibilityFilters.SHOW_ALL:
-    //   return books
-    // case VisibilityFilters.SHOW_COMPLETED:
-    //   return books.filter(t => t.completed)
-    // case VisibilityFilters.SHOW_ACTIVE:
-    //   return books.filter(t => !t.completed)
-  //   default:
-  //     throw new Error('Unknown filter: ' + filter)
-  // }
-  // TODO: 延长books列表
-  return books
+  if (books.length <= countPerPage) {
+    // 书籍数量不够一页
+    return books
+  }
+  return books.slice(currentPage)
 }
 
 const mapStateToProps = state => ({
@@ -23,7 +16,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onPageRight: () => dispatch(pageRight),
-  onPageLeft: () => dispatch(pageLeft)
+  onPageLeft: () => dispatch(pageLeft),
+  dispatch
 })
 
 export default connect(
