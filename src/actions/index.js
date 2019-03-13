@@ -17,11 +17,11 @@ export const toggleTodo = id => ({
   id
 })
 
-export const pageRight = {
+export const PageRight = {
   type: 'PAGE_RIGHT'
 }
 
-export const pageLeft = {
+export const PageLeft = {
   type: 'PAGE_LEFT'
 }
 

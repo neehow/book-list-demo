@@ -7,7 +7,7 @@ const Book = (props) => {
   } else {
     return (
       <li className="Book-container">
-        <h4>{props.name}</h4>
+        <h4>{props.id + '. ' + props.name}</h4>
         <span>{props.author}</span>
         <p>{props.description}</p>
         <div className="Book-footer">
