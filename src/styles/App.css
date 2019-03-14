@@ -1,9 +1,9 @@
 .App {
   position: relative;
-  padding: 40px 70px;
+  padding: 40px 5vw;
   background-color: #f9f9f9;
   overflow: hidden;
-  height: 320px;
+  height: 500px;
 }
 
 .page-left-container,
@@ -32,4 +32,9 @@
 .App:hover .page-right-container {
   right: 20px;
   opacity: 1;
+}
+
+.Count-Switch {
+  position: absolute;
+  bottom: 40px;
 }

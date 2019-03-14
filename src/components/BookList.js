@@ -1,98 +1,69 @@
 import React, { Component } from 'react'
 import Book from './Book'
-import { fetchBooks } from '../actions'
+import { fetchBooks, transitionEnd, END_TRANSITION } from '../actions'
 import { connect } from 'react-redux'
 import '../styles/BookList.css'
 
 class BookList extends Component {
   componentDidMount () {
-    this.props.dispatch(fetchBooks())
+    this.props.dispatch(fetchBooks(this.props.countPerPage))
+  }
+
+  handleTransitionEnd = () => {
+    this.forceUpdate()
+    const {currentPage, countPerPage} = this.props
+    const direction = currentPage === 1 ? 'right' : 'left'
+    console.log('handleTransitionEnd', currentPage, direction)
+    this.props.dispatch(transitionEnd(direction, countPerPage))
+    this.props.dispatch(END_TRANSITION)
   }
 
   render () {
-    const { books, countPerPage, currentPage } = this.props
-    while (books.length % countPerPage !== 0) {
-      books.push({})
-    }
+    const { books, countPerPage, currentPage, transitioning } = this.props
 
-    const bookWidth = 90 / countPerPage + 'vw'
-    const lengthOfBooks = books.length
-    const slideCount = lengthOfBooks / countPerPage
+    const booksCount = books.length
+    const slideCount = booksCount / countPerPage / 2
     console.log('slideCount:', slideCount)
-    if (currentPage % slideCount === 0) {
-      // 目前位于第一屏
-      const style = {transform: 'translateX(-90vw)'}
 
-      return (
-        <div>
-        <ul style={style} className="book-list-ul">
-          {books.map((book, i) => (
-            <Book
-            key={i}
-            {...book}
-            />
-            ))}
-        </ul>
-        <ul className="book-list-ul">
-          {books.map((book, i) => (
-            <Book
-            key={i}
-            {...book}
-            />
-            ))}
-        </ul>
-        </div>
-      )
-    } else if ((currentPage + 1) % slideCount === 0) {
-      // 目前位于最后一屏
-      const leftStyle = {transform: 'translateX(-' + 90 * (slideCount - 1) + 'vw)'}
-      const rightStyle = {transform: 'translateX(90vw)'}
-
-      return (
-        <div>
-        <ul style={leftStyle} className="book-list-ul">
-          {books.map((book, i) => (
-            <Book
-            key={i}
-            {...book}
-            />
-            ))}
-        </ul>
-        <ul style={rightStyle} className="book-list-ul">
-          {books.map((book, i) => (
-            <Book
-            key={i}
-            {...book}
-            />
-            ))}
-        </ul>
-        </div>
-      )
+    const style = {
+      left: -90 * slideCount + 'vw',
+      // left: -90 * (slideCount + currentPage) + 'vw',
+      transform: 'translateX(' + -currentPage * 90 + 'vw)',
+      // transformOrigin: 'center'
     }
-    else {
-      // 目前位于中间屏
-      const leftStyle = {transform: 'translateX(-' + 90 * currentPage + 'vw)'}
 
-      return (
-        <div>
-        <ul style={leftStyle} className="book-list-ul">
-          {books.map((book, i) => (
-            <Book
-            key={i}
-            {...book}
-            />
-            ))}
-        </ul>
-        </div>
-      )
+    let className = 'book-list-ul'
+    if (transitioning) {
+      className += ' transition'
     }
+
+    return (
+      <div className="book-list-div">
+      <ul
+        style={style}
+        className={className}
+        onTransitionEnd={this.handleTransitionEnd}
+      >
+        {books.map((book, i) => (
+          <Book
+            key={'' + i + this.props.id}
+            {...book}
+            countPerPage={countPerPage}
+          />
+          ))}
+      </ul>
+      </div>
+    )
   }
 }
 
-const mapStateToProps = state => ({
-  books: state.books,
-  countPerPage: state.countPerPage,
-  currentPage: state.currentPage
-})
+const mapStateToProps = state => {
+  return ({
+    books: state.books,
+    countPerPage: state.countPerPage,
+    currentPage: state.currentPage,
+    transitioning: state.transitioning
+  })
+}
 
 export default connect(mapStateToProps)(BookList)

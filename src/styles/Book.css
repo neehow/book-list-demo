@@ -1,8 +1,61 @@
-.Book-container {
+.book-container {
   display: inline-block;
-  width: 18vw;
+  /* width: 18vw; */
 }
 
-.Book-tag {
-  display: inline-block;
+.book-cover {
+  margin: 16px 0;
+  width: 120px;
+  height: 180px;
+  border-radius: 2px;
+  box-shadow: 1px 2px 0 0 rgba(235, 240, 242, 0.2);
+  cursor: pointer;
+  background-color: rgb(235, 240, 242);
 }
+
+.book-title {
+  margin: 0 0 4px;
+  color: #444;
+}
+
+.book-author {
+  font-size: 12px;
+  color: #888;
+}
+
+.book-desc {
+  font-size: 12px;
+  color: #333;
+  padding-right: 30px;
+}
+
+.book-rating {
+  font-size: 12px;
+  color: rgb(250, 89, 95);
+}
+
+.book-tags-list {
+  display: inline-block;
+  padding-left: 8px;
+  font-size: 12px;
+}
+
+.book-tag {
+  list-style: none;
+  position: relative;
+  display: inline-block;
+  padding: 0 8px;
+  color: #888;
+}
+
+.book-tag::before {
+  content: '';
+  position: absolute;
+  border-left: 1px solid #aaa;
+  height: 10px;
+  left: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 235 240 242 */

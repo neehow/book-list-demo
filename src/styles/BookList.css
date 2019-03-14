@@ -1,5 +1,9 @@
 .book-list-ul {
   position: absolute;
   left: 0;
+  height: 100%;
+}
+
+.transition {
   transition: transform 0.5s ease-out;
 }

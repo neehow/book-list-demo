@@ -3,6 +3,7 @@ import '../styles/App.css'
 import BookListHeader from '../components/BookListHeader'
 import BookList from '../components/BookList'
 import NextPage from '../components/NextPage'
+import CountSwitch from '../components/CountSwitch'
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
         <div className="page-right-container">
           <NextPage direction="right" />
         </div>
+        <CountSwitch />
       </div>
     )
   }

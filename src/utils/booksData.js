@@ -1,5 +1,6 @@
-// 模拟从后端获取的书籍列表假数据
-export const booksData = [
+// 书籍列表假数据
+const bookCount = 18
+const books = [
   {
     id: 1,
     name: '严晓丽我最亲爱的人',
@@ -11,18 +12,18 @@ export const booksData = [
   },
   {
     id: 2,
-    name: '严晓丽我最亲爱的人',
+    name: '旅行故事',
     imageUrl: '',
-    author: '詹晨',
+    author: '安伯',
     description: '网站征文大赛决选作品 所属组别：小说组 这是一个关于寻找的故事。 一个中年男人在微信',
     rating: '7.8',
     tags: ['文艺', '城市冷暖']
   },
   {
     id: 3,
-    name: '严晓丽我最亲爱的人',
+    name: '左眼中的世界',
     imageUrl: '',
-    author: '詹晨',
+    author: '余林桂',
     description: '网站征文大赛决选作品 所属组别：小说组 这是一个关于寻找的故事。 一个中年男人在微信',
     rating: '7.8',
     tags: ['文艺', '城市冷暖']
@@ -56,7 +57,7 @@ export const booksData = [
   },
   {
     id: 7,
-    name: '严晓丽我最亲爱的人',
+    name: '前往未知之地',
     imageUrl: '',
     author: '詹晨',
     description: '网站征文大赛决选作品 所属组别：小说组 这是一个关于寻找的故事。 一个中年男人在微信',
@@ -65,7 +66,7 @@ export const booksData = [
   },
   {
     id: 8,
-    name: '严晓丽我最亲爱的人',
+    name: '时间旅行者',
     imageUrl: '',
     author: '詹晨',
     description: '网站征文大赛决选作品 所属组别：小说组 这是一个关于寻找的故事。 一个中年男人在微信',
@@ -83,9 +84,9 @@ export const booksData = [
   },
   {
     id: 10,
-    name: '严晓丽我最亲爱的人',
+    name: '天知道这都是啥！',
     imageUrl: '',
-    author: '詹晨',
+    author: '小北',
     description: '网站征文大赛决选作品 所属组别：小说组 这是一个关于寻找的故事。 一个中年男人在微信',
     rating: '7.8',
     tags: ['文艺', '城市冷暖']
@@ -100,3 +101,6 @@ export const booksData = [
     tags: ['文艺', '城市冷暖']
   },
 ]
+
+const booksData = books.slice(0, bookCount)
+export {booksData}

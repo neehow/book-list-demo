@@ -1,22 +1,5 @@
 import { booksData } from '../utils/booksData'
 
-let nextTodoId = 0
-export const addTodo = text => ({
-  type: 'ADD_TODO',
-  id: nextTodoId++,
-  text
-})
-
-export const setVisibilityFilter = filter => ({
-  type: 'SET_VISIBILITY_FILTER',
-  filter
-})
-
-export const toggleTodo = id => ({
-  type: 'TOGGLE_TODO',
-  id
-})
-
 export const PageRight = {
   type: 'PAGE_RIGHT'
 }
@@ -34,12 +17,21 @@ const requestBooks = () => ({
   type: 'REQUEST_BOOKS'
 })
 
-const receiveBooks = (json) => ({
-  type: 'RECEIVE_BOOKS',
-  books: json.data.books
-})
+const receiveBooks = (json, countPerPage) => {
+  const books = json.data.books
+  if (Array.isArray(books) && books.length) {
+    while (books.length % countPerPage !== 0) {
+      books.push({})
+    }
+    books.push(...books)
+  }
+  return ({
+    type: 'RECEIVE_BOOKS',
+    books
+  })
+}
 
-export const fetchBooks = () => {
+export const fetchBooks = (countPerPage) => {
   return dispatch => {
     dispatch(requestBooks())
     // 模拟从后端接口获取数据
@@ -53,8 +45,23 @@ export const fetchBooks = () => {
         resolve(response);
       }, 500)
     }).then(
-      response => dispatch(receiveBooks(response)),
+      response => dispatch(receiveBooks(response, countPerPage)),
       error => console.log('An error occured.', error)
     )
   }
+}
+
+// 书籍列表翻页滚动结束
+export const transitionEnd = (direction, countPerPage) => ({
+  type: 'TRANSITION_END',
+  direction,
+  countPerPage
+})
+
+export const START_TRANSITION = {
+  type: 'START_TRANSITION'
+}
+
+export const END_TRANSITION = {
+  type: 'END_TRANSITION'
 }

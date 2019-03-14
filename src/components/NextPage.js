@@ -1,27 +1,34 @@
 // 翻页按钮
-import React from 'react'
+import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { PageLeft, PageRight } from '../actions'
+import { PageLeft, PageRight, START_TRANSITION } from '../actions'
 import '../styles/NextPage.css'
 
-const NextPage = ({direction, dispatch, shouldHide}) => {
-  let className = 'page-' + direction
-  if (shouldHide) {
-    className += ' hidden'
+class NextPage extends Component {
+  handleClick = () => {
+    const {direction, dispatch} = this.props
+    if (direction === 'left') {
+      dispatch(PageLeft)
+    } else if (direction === 'right') {
+      dispatch(PageRight)
+    }
+    dispatch(START_TRANSITION)
   }
 
-  return (
-    <span
-      className={className}
-      onClick={() => {
-        if (direction === 'left') {
-          dispatch(PageLeft)
-        } else if (direction === 'right') {
-          dispatch(PageRight)
-        }
-      }}
-    >></span>
-  )
+  render () {
+    const {direction, shouldHide} = this.props
+    let className = 'page-' + direction
+    if (shouldHide) {
+      className += ' hidden'
+    }
+
+    return (
+      <span
+        className={className}
+        onClick={this.handleClick}
+      >></span>
+    )
+  }
 }
 
 const mapStateToProps = state => {
